@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>FTLY — мягкий старт</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Глобальная навигация (демо) -->
+    <nav class="demo-nav">
+      <span class="demo-nav__label">FTLY · экраны</span>
+      <div class="demo-nav__btns">
+        <button class="demo-nav__btn active" data-screen="onboarding">1. Онбординг</button>
+        <button class="demo-nav__btn" data-screen="program">2. Программа</button>
+        <button class="demo-nav__btn" data-screen="today">3. Сегодня</button>
+        <button class="demo-nav__btn" data-screen="progress">4. Прогресс</button>
+        <button class="demo-nav__btn" data-screen="video">5. Видео</button>
+        <button class="demo-nav__btn" data-screen="bot">6. Бот</button>
+        <button class="demo-nav__btn" data-screen="landing">7. Лендинг</button>
+        <button class="demo-nav__btn" data-screen="admin">8. Админка</button>
+      </div>
+    </nav>
+
+    <!-- 1. Онбординг -->
+    <section id="screen-onboarding" class="screen active">
+      <div class="onboarding">
+        <div class="onboarding__header">
+          <span class="onboarding__step">Шаг 1 из 4</span>
+          <div class="progress-dots">
+            <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+        </div>
+        <h1 class="onboarding__question">Как тебя зовут?</h1>
+        <p class="onboarding__hint">Мы будем обращаться к тебе по имени</p>
+        <input type="text" class="field" placeholder="Твоё имя" value="Анна">
+        <div class="onboarding__actions">
+          <button class="btn btn--primary" data-next="program">Далее</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Выбор программы -->
+    <section id="screen-program" class="screen">
+      <div class="program">
+        <h1 class="page-title">Выбери программу</h1>
+        <p class="page-subtitle">7 дней — чтобы попробовать. Дальше — чтобы получить результат.</p>
+        <div class="program__cards">
+          <div class="card program-card" data-program="trial">
+            <div class="program-card__badge">Бесплатно</div>
+            <h2 class="program-card__title">7 дней привычек</h2>
+            <p class="program-card__desc">Мягкий старт: короткие тренировки, без обещания результата</p>
+            <span class="program-card__meta">7 дней · 15 мин/день</span>
+            <button class="btn btn--secondary" data-next="today">Попробовать</button>
+          </div>
+          <div class="card program-card program-card--accent" data-program="full">
+            <div class="program-card__badge program-card__badge--accent">Рекомендуем</div>
+            <h2 class="program-card__title">4 недели</h2>
+            <p class="program-card__desc">Полная программа с живым тренером и обратной связью</p>
+            <span class="program-card__meta">28 дней · 20–30 мин/день</span>
+            <button class="btn btn--primary" data-next="today">Выбрать</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Сегодня -->
+    <section id="screen-today" class="screen">
+      <div class="today">
+        <div class="today__top">
+          <span class="today__day">День <strong id="current-day">3</strong> из 28</span>
+          <span class="today__streak">🔥 3 дня подряд</span>
+        </div>
+        <h1 class="page-title">Сегодня</h1>
+        <div class="card today__video-card">
+          <div class="today__video-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16"/></svg>
+            <span>Видео упражнения</span>
+          </div>
+          <h3 class="today__exercise-title">Мягкая растяжка спины</h3>
+          <p class="today__exercise-desc">8 минут · без оборудования</p>
+        </div>
+        <div class="today__progress-block">
+          <div class="progress-bar">
+            <div class="progress-bar__fill" style="width: 60%"></div>
+          </div>
+          <span class="today__progress-label">Прогресс дня: 3 из 5 упражнений</span>
+        </div>
+        <div class="today__actions">
+          <button class="btn btn--primary btn--large" id="done-btn">Выполнено</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Прогресс -->
+    <section id="screen-progress" class="screen">
+      <div class="progress-screen">
+        <h1 class="page-title">Прогресс</h1>
+        <p class="page-subtitle">28 дней программы</p>
+        <div class="progress-bar progress-bar--thick">
+          <div class="progress-bar__fill" style="width: 10%"></div>
+        </div>
+        <span class="progress-screen__label">3 из 28 дней</span>
+        <div class="days-list" id="days-list">
+          <!-- генерируется JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Отправить видео -->
+    <section id="screen-video" class="screen">
+      <div class="video-upload">
+        <h1 class="page-title">Отправить видео тренеру</h1>
+        <p class="page-subtitle">Запиши короткое видео (до 1 минуты) и отправь на проверку</p>
+        <div class="card video-upload__card">
+          <div class="video-upload__icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polygon points="10,9 15,12 10,15"/></svg>
+          </div>
+          <p class="video-upload__instruction">Нажми, чтобы записать или загрузить видео</p>
+          <button class="btn btn--secondary" id="upload-btn">Загрузить видео</button>
+          <div class="upload-progress hidden" id="upload-progress">
+            <div class="progress-bar"><div class="progress-bar__fill" style="width: 0%" id="upload-fill"></div></div>
+            <span class="upload-progress__label">Загрузка...</span>
+          </div>
+        </div>
+        <div class="card video-upload__status" id="trainer-status">
+          <div class="status-row">
+            <span class="status-dot status-dot--waiting"></span>
+            <span>Ожидает ответа тренера</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Состояния бота -->
+    <section id="screen-bot" class="screen">
+      <div class="bot-states">
+        <h1 class="page-title">Состояния бота</h1>
+        <div class="bot-messages">
+          <div class="bot-message bot-message--greeting">
+            <span class="bot-message__avatar">🤖</span>
+            <div class="bot-message__bubble">
+              <p><strong>Привет, Анна!</strong> 👋</p>
+              <p>Добро пожаловать в FTLY. Твой первый шаг — мягкий, без давления. Начнём?</p>
+              <button class="btn btn--small btn--primary">Начать</button>
+            </div>
+          </div>
+          <div class="bot-message bot-message--reminder">
+            <span class="bot-message__avatar">🤖</span>
+            <div class="bot-message__bubble">
+              <p>⏰ Напоминание: сегодня день 3 из 28. Выполни упражнения, когда будет удобно.</p>
+            </div>
+          </div>
+          <div class="bot-message bot-message--comment">
+            <span class="bot-message__avatar">🤖</span>
+            <div class="bot-message__bubble">
+              <p>💬 Тренер ответил на твоё видео: «Отличная работа, Анна! Обрати внимание на дыхание».</p>
+            </div>
+          </div>
+          <div class="bot-message bot-message--final">
+            <span class="bot-message__avatar">🤖</span>
+            <div class="bot-message__bubble">
+              <p>🎉 Ты завершила тест-драйв «7 дней привычек»! Готова к программе «4 недели»?</p>
+              <button class="btn btn--small btn--primary">Узнать больше</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Лендинг -->
+    <section id="screen-landing" class="screen">
+      <div class="landing">
+        <header class="landing__header">
+          <span class="logo">FTLY</span>
+          <button class="btn btn--primary btn--small">Начать</button>
+        </header>
+        <div class="landing__hero">
+          <h1 class="landing__title">7 дней — чтобы попробовать.<br>Дальше — чтобы получить результат.</h1>
+          <p class="landing__subtitle">Онлайн-тренировки с живым тренером для женщин-новичков. Мягкий старт, забота, честность.</p>
+          <button class="btn btn--primary btn--large">Попробовать бесплатно</button>
+        </div>
+        <div class="landing__trainer">
+          <div class="trainer-avatar">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+          </div>
+          <div class="trainer-info">
+            <h3>Мария — твой тренер</h3>
+            <p>Сертифицированный тренер, мама двоих детей. Поможет войти в ритм без стресса.</p>
+          </div>
+        </div>
+        <div class="landing__testimonials">
+          <h3>Отзывы</h3>
+          <div class="testimonial-card">
+            <p>«Наконец-то программа, где не нужно убиваться. Мягко, понятно, с поддержкой»</p>
+            <span>— Екатерина, 32</span>
+          </div>
+          <div class="testimonial-card">
+            <p>«7 дней помогли привыкнуть. Осталась на 4 недели — вижу результат»</p>
+            <span>— Ольга, 38</span>
+          </div>
+        </div>
+        <div class="landing__faq">
+          <h3>Частые вопросы</h3>
+          <details><summary>Нужно ли оборудование?</summary><p>Нет, все упражнения без инвентаря.</p></details>
+          <details><summary>Сколько времени в день?</summary><p>15–30 минут в зависимости от программы.</p></details>
+          <details><summary>Можно ли с детьми?</summary><p>Да, тренировки короткие и адаптированные.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Админка тренера -->
+    <section id="screen-admin" class="screen">
+      <div class="admin">
+        <aside class="admin__sidebar">
+          <h2 class="admin__logo">FTLY · Тренер</h2>
+          <nav class="admin__nav">
+            <a class="admin__nav-item active">Клиенты</a>
+            <a class="admin__nav-item">Расписание</a>
+            <a class="admin__nav-item">Комментарии</a>
+          </nav>
+        </aside>
+        <main class="admin__main">
+          <div class="admin__header">
+            <h1>Список клиентов</h1>
+            <span class="admin__count">12 активных</span>
+          </div>
+          <div class="admin__client-list">
+            <div class="admin-client card">
+              <div class="admin-client__info">
+                <span class="admin-client__avatar">А</span>
+                <div>
+                  <strong>Анна К.</strong>
+                  <span class="admin-client__meta">4 недели · День 3</span>
+                </div>
+              </div>
+              <div class="admin-client__status">
+                <span class="status-dot status-dot--new"></span> Новое видео
+              </div>
+              <button class="btn btn--small btn--secondary">Открыть</button>
+            </div>
+            <div class="admin-client card">
+              <div class="admin-client__info">
+                <span class="admin-client__avatar">О</span>
+                <div>
+                  <strong>Ольга М.</strong>
+                  <span class="admin-client__meta">7 дней · День 5</span>
+                </div>
+              </div>
+              <div class="admin-client__status">
+                <span class="status-dot status-dot--done"></span> Проверено
+              </div>
+              <button class="btn btn--small btn--secondary">Открыть</button>
+            </div>
+            <div class="admin-client card">
+              <div class="admin-client__info">
+                <span class="admin-client__avatar">Е</span>
+                <div>
+                  <strong>Екатерина В.</strong>
+                  <span class="admin-client__meta">4 недели · День 12</span>
+                </div>
+              </div>
+              <div class="admin-client__status">
+                <span class="status-dot status-dot--waiting"></span> Ожидает
+              </div>
+              <button class="btn btn--small btn--secondary">Открыть</button>
+            </div>
+          </div>
+          <div class="admin__detail card">
+            <h3>Карточка клиента: Анна К.</h3>
+            <div class="admin-video">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polygon points="10,9 15,12 10,15"/></svg>
+              <span>Видео клиента (просмотр)</span>
+            </div>
+            <div class="admin-comment">
+              <label for="trainer-comment">Комментарий тренера:</label>
+              <textarea id="trainer-comment" class="field" rows="3" placeholder="Напишите комментарий...">Отличная работа! Обрати внимание на дыхание.</textarea>
+              <button class="btn btn--primary btn--small">Отправить</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
